@@ -54,6 +54,24 @@ function Gui_OpeningFcn(hObject, eventdata, handles, varargin)
 
 % Choose default command line output for Gui
 handles.output = hObject;
+% Update handles structure
+guidata(hObject, handles);
+ha = axes('units','normalized', ...
+            'position',[0 0 1 1]);
+% El fondo hacia la parte inferior
+uistack(ha,'bottom');
+I=imread('background.jpg');
+imagesc(I)
+colormap gray
+% Ejes invisibles
+set(ha,'handlevisibility','off', ...
+            'visible','off')
+
+% UIWAIT makes Menu wait for user response (see UIRESUME)
+% uiwait(handles.figure1);
+axes(handles.Pantalla);             % Establece el eje como actual 
+set(gca, 'Box', 'on');              % Se encierran los ejes en una caja 
+set(gca, 'XTick', [], 'YTick', [])  % No muestra las marcas de la señal de los ejes
 
 % Update handles structure
 guidata(hObject, handles);
@@ -94,7 +112,9 @@ function detectar1_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 senal = get(handles.detectar1, 'UserData');%obtenemos la imagen guardadas
 [senalRecor] = binarizar(senal);
-imshow(senalRecor);
+[imaR]=getSegments(senalRecor);
+figure(7); imshow(imaR);
+%imshow(senalRecor);
 
 
 % --- Executes on button press in detecNeu.

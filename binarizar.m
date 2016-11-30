@@ -2,7 +2,7 @@ function [ esquejeBin ] = binarizar( esqueje )
 %--------------------------------------------------------------------------
 %-- 1. Inicio de la función recortaTallo ----------------------------------
 %--------------------------------------------------------------------------
-figure(12);imshow(esqueje);impixelinfo%mostramos las diferentes capas retornadas
+%figure(12);imshow(esqueje);impixelinfo%mostramos las diferentes capas retornadas
 a = esqueje;%llevamos la imagen a la variable a
 
 
@@ -39,7 +39,7 @@ tamFil = fil*4;
 tamCol = col*4;
 a = ones(tamFil,tamCol);
 a = normaliza(a);
-figure(13);imshow(a);impixelinfo%mostramos las diferentes capas retornadas
+%figure(13);imshow(a);impixelinfo%mostramos las diferentes capas retornadas
 for i = 1:fil
     for j = 1:col
         for k = 1:3
@@ -65,12 +65,12 @@ end
 c = imrotate(a,-90);
 
 h = c;
-figure(19);imshow(h);impixelinfo%mostramos el esqueje binarizado
-figure(14);imshow(a);impixelinfo%mostramos las diferentes capas retornadas
-figure(1);imshow(b);impixelinfo%mostramos las diferentes capas retornadas
-title('Las diferentes capas en escala de grises');
-figure(2);imshow(c);impixelinfo%mostramos la capa que seleccionamos para procesar el esqueje
-title('usaremos');
+%figure(19);imshow(h);impixelinfo%mostramos el esqueje binarizado
+%figure(14);imshow(a);impixelinfo%mostramos las diferentes capas retornadas
+%figure(1);imshow(b);impixelinfo%mostramos las diferentes capas retornadas
+%title('Las diferentes capas en escala de grises');
+%$figure(2);imshow(c);impixelinfo%mostramos la capa que seleccionamos para procesar el esqueje
+%title('usaremos');
 
 %%%%%circulo
 plancha = c;
@@ -94,9 +94,9 @@ for i = puntoX2:puntoX2+14*4
     end
 end
 plancha2(plancha==0)=0;
-figure(5);imshow(plancha2);impixelinfo
+%figure(5);imshow(plancha2);impixelinfo
 c=pixelMayor(plancha2,c);%todo lo que esta en negro en la imagen binarizada pongalo negro en la imagen original
-figure(3);imshow(c);impixelinfo
+%figure(3);imshow(c);impixelinfo
 %%%%para mejorar la calida
 %%%%aqui termina
 %%%%fin circulo
@@ -108,9 +108,9 @@ figure(3);imshow(c);impixelinfo
 
 c(c>150)=255;
 c(c<255)=0;%definimos el umbral en el cual se encuentra el esqueje
-figure(4);imshow(c);impixelinfo%mostramos el esqueje binarizado
+%figure(4);imshow(c);impixelinfo%mostramos el esqueje binarizado
 c = ~c;
-figure(6);imshow(c);impixelinfo%mostramos el esqueje binarizado
+%figure(6);imshow(c);impixelinfo%mostramos el esqueje binarizado
 %inicio de funcion
 
 % for i = 1:fil
@@ -136,24 +136,24 @@ figure(6);imshow(c);impixelinfo%mostramos el esqueje binarizado
 if(detectaBlanco(c)==1)
     ee=strel('disk',4);%Definimos un elemento estructurante mayor 
         c=imerode(c,ee);%realizamos la dilatación de la imagen
-        figure(7);imshow(c);impixelinfo%mostramos el esqueje binarizado
+        %figure(7);imshow(c);impixelinfo%mostramos el esqueje binarizado
 end
 
 c = bwareaopen(c,fil*8);        
 
 
-figure(8);imshow(c);impixelinfo%mostramos el esqueje binarizado
+%figure(8);imshow(c);impixelinfo%mostramos el esqueje binarizado
 if(c(centroX,centroY)==0)
     c = eliExtrema(c);
 else
     c = ~c;
 end
-figure(9);imshow(c);impixelinfo%mostramos el esqueje binarizado
+%figure(9);imshow(c);impixelinfo%mostramos el esqueje binarizado
 h(c==0)=0;
 
 %fin de funciom
-figure(10);imshow(h);%mostramos el esqueje binarizado
-pause(1)
+%figure(10);imshow(h);%mostramos el esqueje binarizado
+%pause(1)
 %--------------------------------------------------------------------------
 %-- 6. realizamos la erosion del esqueje ---------------------------------
 %--------------------------------------------------------------------------
@@ -170,7 +170,8 @@ pause(1)
         % %forma más solida
         % title('Imagen dilatada');
 %d = bwareaopen(d,40000);%eliminamos objetos que no pertenezcan al esqueje
-
+% figure(1); imshow(h); 
+% imwrite(h, 'prueba.png');
 esquejeBin = h; %retornamos imagen binarizada
 %--------------------------------------------------------------------------
 %-- 7. Imagen original recortada ------------------------------------------

@@ -22,7 +22,7 @@ vueltas = vueltas + 1;
 end
 vueltas = 0;
 recortada = imrotate(recortada,90);
-figure(11);imshow(recortada);impixelinfo%mostramo
+% figure(11);imshow(recortada);impixelinfo%mostramo
 while(vueltas < 2)
 for i = mitadFil:fil
     for j = mitadCol:col
