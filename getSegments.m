@@ -89,7 +89,7 @@ function[imaR] = getSegments(imagen)
         segments(k).size = size(segments(k).image);
 
         %debug mode
-        rectangle('Position', bBox(k).BoundingBox,'EdgeColor','y');
+%         rectangle('Position', bBox(k).BoundingBox,'EdgeColor','y');
     end
 % 
 %     %debug mode
@@ -110,11 +110,12 @@ function[imaR] = getSegments(imagen)
 %     subplot(2,2,4),subimage(media2),title('Filtro de media 3X3');
 
     bw = im2bw(media2);
-    se = strel('disk',3);
-    ss = strel('disk',2);
-    bw = imerode(bw,ss);
-    bw = imclose(bw,se);  
-    
+    bw = ~bw;
+%     se = strel('disk',3);
+%     ss = strel('disk',2);
+%     bw = imerode(bw,ss);
+%     bw = imclose(bw,se);  
+%     
 %     figure(4); imshow(bw);
 %     imwrite(bw,'imprueba.bmp');
     imaR = bw;

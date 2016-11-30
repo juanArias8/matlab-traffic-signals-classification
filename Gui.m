@@ -110,10 +110,8 @@ function detectar1_Callback(hObject, eventdata, handles)
 % hObject    handle to detectar1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-senal = get(handles.detectar1, 'UserData');%obtenemos la imagen guardadas
-[senalRecor] = binarizar(senal);
-[imaR]=getSegments(senalRecor);
-figure(7); imshow(imaR);
+%procesaCarpetas();
+[matrizE, matrizT] = creaMatrices();
 %imshow(senalRecor);
 
 

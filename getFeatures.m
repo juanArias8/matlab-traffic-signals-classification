@@ -4,18 +4,109 @@
 
 function [features] = getFeatures(imagen)
      % Valores por default
-    features = zeros(); 
-    %casting
-    img = double(imagen);
-    %contador de caracteristicas
-    cont = 1;
-    [nFilas, nCols] = size(img);
+     features = zeros(); 
+     img = double(imagen);
+     cont = 1;
+     
+     prop = regionprops(img,'all');
+     
+%      boundingBox = prop.BoundingBox;
+% %      features(cont) = boundingBox;
+%     features = cat(features, boundingBox);
+%      cont = cont+1;
+     
+%      centroid = prop.Centroid;
+%      features(cont) = centroid;
+%      cont = cont+1;
+     
+     eccentricity = prop.Eccentricity;
+     features(cont) = eccentricity;
+     cont = cont+1;
+     
+     equivDiameter = prop.EquivDiameter;
+     features(cont) = equivDiameter;
+     cont = cont+1;
+     
+     eulerNumber = prop.EulerNumber;
+     features(cont) = eulerNumber;
+     cont = cont+1;
+     
+%      extent = prop.Extent;
+%      features(cont) = Extent;
+%      cont = cont+1;
+     
+%      extrema = prop.Extrema;
+%      features(cont) = extrema;
+%      cont = cont+1;
+     
+     filledArea = prop.FilledArea;
+     features(cont) = filledArea;
+     cont = cont+1;
+     
+%      filledImage = prop.FilledImage;
+%      features(cont) = filledImage;
+%      cont = cont+1;
+     
+%      image = prop.Image;
+%      features(cont) = image;
+%      cont = cont+1;
+     
+     majorAxisLength = prop.MajorAxisLength;
+     features(cont) = majorAxisLength;
+     cont = cont+1;
+     
+%      maxIntensity = prop.MaxIntensity;
+%      features(cont) = maxIntensity;
+%      cont = cont+1;
+     
+%      meanIntensity = prop.MeanIntensity;
+%      features(cont) = meanIntensity;
+%      cont = cont+1;
+     
+     minorAxisLength = prop.MinorAxisLength;
+     features(cont) = minorAxisLength;
+     cont = cont+1;
+     
+     orientation = prop.Orientation;
+     features(cont) = orientation;
+     cont = cont+1;
+     
+     perimeter = prop.Perimeter;
+     features(cont) = perimeter;
+     cont = cont+1;
+     
+%      pixelIdxList = prop.PixelIdxList;
+%      features(cont) = pixelIdxList;
+%      cont = cont+1;
+     
+%      pixelList = prop.PixelList;
+%      features(cont) = pixelList;
+%      cont = cont+1;
+     
+%      pixelValues = prop.PixelValues;
+%      features(cont) = pixelValues;
+%      cont = cont+1;
+     
+%      subarrayIdx = prop.SubarrayIdx;
+%      features(cont) = subarrayIdx;
+%      cont = cont+1;
+     
+%      weightedCentroid = prop.WeightedCentroid;
+%      features(cont) = weightedCentroid;
+%      cont = cont+1;
+     
+%      basic = prop.basic;
+%      features(cont) = basic;
+%      cont = cont+1;
+     
+%     
+     [nFilas, nCols] = size(img);
     center = [ceil(nFilas/2), ceil(nCols/2)];
         
     shrink = bwmorph(img,'shrink',Inf);
     spur = bwmorph(shrink,'spur',Inf);
-
-               
+% 
+%                
     % razón nFilas/nCols
     features(cont) = nFilas/nCols;  
     cont = cont + 1;
@@ -37,23 +128,23 @@ function [features] = getFeatures(imagen)
         (center(1,1) - centroid(1))^2 + ...
         (center(1,2) - centroid(2))^2);    
     cont = cont + 1;
-        
-    %  numero de euler: e=#deObjetos - #deAgujerosEnLosObjetos
-    feature_euler  = regionprops(spur, 'EulerNumber');
-    features(cont) = feature_euler(1).EulerNumber;  
-    cont = cont + 1;
-
-    % orientación de la imagen  (in degrees ranging from -90 to 90 degrees) 
-    feature_orientation  = regionprops(spur, 'Orientation');
-    features(cont) = feature_orientation(1).Orientation;  
-    cont = cont + 1;
-
+%         
+%     %  numero de euler: e=#deObjetos - #deAgujerosEnLosObjetos
+%     feature_euler  = regionprops(spur, 'EulerNumber');
+%     features(cont) = feature_euler(1).EulerNumber;  
+%     cont = cont + 1;
+% 
+%     % orientación de la imagen  (in degrees ranging from -90 to 90 degrees) 
+%     feature_orientation  = regionprops(spur, 'Orientation');
+%     features(cont) = feature_orientation(1).Orientation;  
+%     cont = cont + 1;
+% 
     % STD X,STD Y
     features(cont) = mean(std(spur));  
     cont = cont + 1;
     features(cont) = mean(std(spur'));  
     cont = cont + 1;
-    
+%     
     % procesar por bloque
     nBlocks = 5;
     sizeBlockFila = nFilas/nBlocks;
@@ -119,4 +210,5 @@ function [features] = getFeatures(imagen)
         features(cont) = nBranchPoints;
         cont = cont + 1;
 
+    features = features;
 end

@@ -1,21 +1,8 @@
-function [ esquejeBin ] = binarizar( esqueje )
-%--------------------------------------------------------------------------
-%-- 1. Inicio de la función recortaTallo ----------------------------------
-%--------------------------------------------------------------------------
-%figure(12);imshow(esqueje);impixelinfo%mostramos las diferentes capas retornadas
-a = esqueje;%llevamos la imagen a la variable a
+function [ imagenBin ] = binarizar( imagen )
 
-
-
-%--------------------------------------------------------------------------
-%-- 2. Capas de la imagen -------------------------------------------------
-%--------------------------------------------------------------------------
-
+a = imagen;
 
 [b,cap]=componentes_color(a);%c contiene la capa con la que procesaremos el esqueje
-%metodo de fill
-
-
 % 
 % [d] = filtros(cap);
 % figure(17);imshow(cap);impixelinfo
@@ -172,7 +159,9 @@ h(c==0)=0;
 %d = bwareaopen(d,40000);%eliminamos objetos que no pertenezcan al esqueje
 % figure(1); imshow(h); 
 % imwrite(h, 'prueba.png');
-esquejeBin = h; %retornamos imagen binarizada
+
+
+imagenBin = h; %retornamos imagen binarizada
 %--------------------------------------------------------------------------
 %-- 7. Imagen original recortada ------------------------------------------
 %--------------------------------------------------------------------------
