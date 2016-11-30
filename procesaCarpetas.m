@@ -1,5 +1,6 @@
-matrizEntrenamiento = [];
-dirList = dir(['seniales/']);    
+function[matrizE]= procesaCarpetas()
+    matrizEntrenamiento = [];
+    dirList = dir(['seniales/']);    
     for ndir=1:length(dirList)
         if ~(strcmp(dirList(ndir).name, '.') || strcmp(dirList(ndir).name, '..'))
             if dirList(ndir).isdir == 1,
@@ -27,3 +28,5 @@ dirList = dir(['seniales/']);
         end
     end
     save('matrizEntrenamiento.mat','matrizEntrenamiento');
+    matrizE = matrizEntrenamiento;
+end

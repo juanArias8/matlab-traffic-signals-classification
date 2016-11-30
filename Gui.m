@@ -72,7 +72,7 @@ set(ha,'handlevisibility','off', ...
 axes(handles.Pantalla);             % Establece el eje como actual 
 set(gca, 'Box', 'on');              % Se encierran los ejes en una caja 
 set(gca, 'XTick', [], 'YTick', [])  % No muestra las marcas de la señal de los ejes
-
+imshow(I);
 % Update handles structure
 guidata(hObject, handles);
 
