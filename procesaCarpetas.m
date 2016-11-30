@@ -1,6 +1,6 @@
 function[matrizE, matrizT]= procesaCarpetas()
     matrizEntrenamiento = [];
-    className = [];
+    nombreClase = [];
     cont = 1; 
     dirList = dir(['seniales/']);    
     for ndir=1:length(dirList)
@@ -24,14 +24,14 @@ function[matrizE, matrizT]= procesaCarpetas()
                     figure(1); imshow(imaR);
                     [featuresImaR] = getFeatures(imaR);
                     matrizEntrenamiento = cat(1, matrizEntrenamiento, featuresImaR);    
-                    className(cont,1) = cont;
+                    nombreClase(cont,ndir-2) = 1;
                     cont = cont+1;
                 end 
             end
         end
     end
     save('matrizEntrenamiento.mat','matrizEntrenamiento');
-    save('className.mat','className');
+    save('nombreClase.mat','nombreClase');
     matrizE = matrizEntrenamiento;
-    matrizT = className;
+    matrizT = nombreClase;
 end
