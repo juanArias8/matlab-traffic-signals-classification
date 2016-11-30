@@ -16,12 +16,6 @@ function[imaR] = getSegments(imagen)
     % 
     % grayImage = media2;
 
-    DEBUG = 1;
-    % Valores por default
-    if nargin<2, 
-    DEBUG=0; 
-    end;    
-
 %     figure(2); 
 %     subplot 221; imshow(ima);
 
@@ -95,9 +89,7 @@ function[imaR] = getSegments(imagen)
         segments(k).size = size(segments(k).image);
 
         %debug mode
-        if DEBUG == 1,
-            rectangle('Position', bBox(k).BoundingBox,'EdgeColor','y');
-        end
+        rectangle('Position', bBox(k).BoundingBox,'EdgeColor','y');
     end
 % 
 %     %debug mode

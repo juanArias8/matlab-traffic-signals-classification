@@ -2,19 +2,11 @@
 %http://watermarkero.blogspot.mx/2015/03/reconocimiento-de-caracteres-usando.html
 %Reconocimiento de caracteres usando Matlab
 
-function [features] = getFeatures(img, DEBUG)
+function [features] = getFeatures(imagen)
      % Valores por default
-    DEBUG = 1;
-    features = zeros();
-    if nargin<2, 
-        DEBUG=0; 
-    end;    
-    if nargin<1, 
-        img = im2bw(imread('imprueba.bmp'));
-        figure(1); imshow(img);
-    end;    
+    features = zeros(); 
     %casting
-    img = double(img);
+    img = double(imagen);
     %contador de caracteristicas
     cont = 1;
     [nFilas, nCols] = size(img);
@@ -106,13 +98,8 @@ function [features] = getFeatures(img, DEBUG)
     nHoles = length(find([stats.Area]>10));
     features(cont) = nHoles;
     cont = cont + 1;
-        
-    %debug mode
-    if DEBUG==1
-        figure; imshow(filled); title('All holes filled')
-        figure; imshow(holes); title('Hole pixels identified')        
-        figure; imshow(bigholes); title('Only the big holes')        
-    end
+       
+
     
     % numero de end points
         endPoints = bwmorph(spur,'endpoints');
@@ -132,14 +119,4 @@ function [features] = getFeatures(img, DEBUG)
         features(cont) = nBranchPoints;
         cont = cont + 1;
 
-
-    %debug mode
-    if DEBUG==1
-        figure(2);
-        subplot 322; imshow(spur); title('spur')
-        subplot 323; imshow(endPoints); title('end points')
-        subplot 324; imshow(branchpoints); title('branch points')
-        subplot 325; imshow(endPoints_dilated); title('endPoints dilated')
-        subplot 326; imshow(branchpoints_dilated); title('branch points dilated')
-    end
 end
