@@ -207,6 +207,7 @@ end
         % %forma más solida
         % title('Imagen dilatada');
 %d = bwareaopen(d,40000);%eliminamos objetos que no pertenezcan al esqueje
+h = bwareaopen(h,fil*2);
 h = imresize(h, [300 300]);
 esquejeBin = h; %retornamos imagen binarizada
 %--------------------------------------------------------------------------
