@@ -41,6 +41,7 @@ if nargout
 else
     gui_mainfcn(gui_State, varargin{:});
 end
+
 % End initialization code - DO NOT EDIT
 
 
@@ -110,7 +111,7 @@ function detectar1_Callback(hObject, eventdata, handles)
 % hObject    handle to detectar1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-%procesaCarpetas();
+ procesaCarpetas();
 [matrizE, matrizT] = creaMatrices();
 %imshow(senalRecor);
 
@@ -120,3 +121,12 @@ function detecNeu_Callback(hObject, eventdata, handles)
 % hObject    handle to detecNeu (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+load('netRedNeuronal.mat');
+senial = get(handles.detectar1, 'UserData');
+[senial] = binarizar(senial);
+[senial] = getSegments(senial);
+set(handles.detectar1, 'UserData', senial);
+imshow(senial);
+[x(:,1)] = getFeatures(senial);
+y = net(x);
+disp(y);

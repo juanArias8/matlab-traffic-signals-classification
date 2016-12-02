@@ -6,6 +6,8 @@
 %
 %   matrizEntrenamiento - input data.
 %   nombreClase - target data.
+load('matrizEntrenamiento.mat');
+load('nombreClase.mat');
 
 x = matrizEntrenamiento';
 t = nombreClase';
@@ -48,3 +50,4 @@ view(net)
 %figure, plotconfusion(t,y)
 %figure, plotroc(t,y)
 
+save('netRedNeuronal.mat');
