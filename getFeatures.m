@@ -4,9 +4,30 @@
 
 function [features] = getFeatures(imagen)
      % Valores por default
-     features = zeros(43,1); 
+     features = zeros(); 
      img = double(imagen);
      cont = 1;
+     
+      [fil, col] = size(img);
+     midf = fil/2;
+     x=0;
+     for i=1 : col
+        if(img(midf,i)) == 1
+            x = x+1;
+        end
+     end
+     features(cont,1) = x;
+     cont = cont+1;
+     midc = col/2;
+     y=0;
+     for i=1 : fil
+        if(img(i,midc)) == 1
+            y = y+1;
+        end
+     end
+     features(cont,1) = y;
+     cont = cont +1;
+     
      
      prop = regionprops(img,'all');
      
@@ -20,15 +41,15 @@ function [features] = getFeatures(imagen)
 %      cont = cont+1;
      
      eccentricity = prop.Eccentricity;
-     features(cont,1) = eccentricity;
+     features(cont,1) =eccentricity;
      cont = cont+1;
      
      equivDiameter = prop.EquivDiameter;
-     features(cont,1) = equivDiameter;
+     features(cont,1) =equivDiameter;
      cont = cont+1;
      
      eulerNumber = prop.EulerNumber;
-     features(cont,1) = eulerNumber;
+    features(cont,1) = eulerNumber;
      cont = cont+1;
      
 %      extent = prop.Extent;
@@ -40,7 +61,7 @@ function [features] = getFeatures(imagen)
 %      cont = cont+1;
      
      filledArea = prop.FilledArea;
-     features(cont,1) = filledArea;
+     features(cont,1) =filledArea;
      cont = cont+1;
      
 %      filledImage = prop.FilledImage;
@@ -68,11 +89,11 @@ function [features] = getFeatures(imagen)
      cont = cont+1;
      
      orientation = prop.Orientation;
-    features(cont,1) = orientation;
+     features(cont,1) =orientation;
      cont = cont+1;
      
      perimeter = prop.Perimeter;
-     features(cont,1) = perimeter;
+    features(cont,1) = perimeter;
      cont = cont+1;
      
 %      pixelIdxList = prop.PixelIdxList;
@@ -108,7 +129,7 @@ function [features] = getFeatures(imagen)
 % 
 %                
     % razón nFilas/nCols
-    features(cont,1) = nFilas/nCols;  
+    features(cont,1) =nFilas/nCols;  
     cont = cont + 1;
 
     % razon de area - imagen
@@ -118,9 +139,9 @@ function [features] = getFeatures(imagen)
     % centroide X, centroide Y
     [y, x] = find( spur );
     centroid = [mean(x) mean(y)];
-    features(cont,1) = centroid(1);  
+   features(cont,1) = centroid(1);  
     cont = cont + 1;
-    features(cont,1) = centroid(2);  
+    features(cont,1) =centroid(2);  
     cont = cont + 1;
     
     % distancia del centro al centroide
@@ -140,7 +161,7 @@ function [features] = getFeatures(imagen)
 %     cont = cont + 1;
 % 
     % STD X,STD Y
-    features(cont,1) = mean(std(spur));  
+   features(cont,1) = mean(std(spur));  
     cont = cont + 1;
     features(cont,1) = mean(std(spur'));  
     cont = cont + 1;
@@ -177,7 +198,7 @@ function [features] = getFeatures(imagen)
     end    
     %asegurar que las cols procesadas sean nBloques
     for i = filasProcesadas:(nBlocks-1)
-        features(cont,1) = 0;
+       features(cont,1) = 0;
         cont = cont + 1;
     end
 
@@ -187,7 +208,7 @@ function [features] = getFeatures(imagen)
     bigholes = bwareaopen(holes, 200);
     stats = regionprops(bigholes, 'Area');
     nHoles = length(find([stats.Area]>10));
-    features(cont,1) = nHoles;
+    features(cont,1) =nHoles;
     cont = cont + 1;
        
 
@@ -207,8 +228,7 @@ function [features] = getFeatures(imagen)
      % numero de branch points               
         stats = regionprops(branchpoints_dilated, 'Area');
         nBranchPoints = length(find([stats.Area]>10));
-        features(cont,1) = nBranchPoints;
-        cont = cont + 1;
+        features(cont,1) =nBranchPoints;
 
     features = features;
 end

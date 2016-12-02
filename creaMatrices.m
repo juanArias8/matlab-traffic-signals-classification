@@ -18,7 +18,6 @@ function creaMatrices()
                     figure(1); imshow(imagen);
                     [featuresImaR] = getFeatures(imagen);
                     matrizEntrenamiento(:,j) = featuresImaR; 
-                    disp(j);
                     nombreClase(ndir-2,j) = 1;
                     j = j+1;
                 end 
