@@ -189,6 +189,7 @@ if(sesalva ==0)
         h = bwareaopen(h,8); 
         %figure(19);imshow(h);impixelinfo%mostramos el esqueje binarizado
 end
+ h = bwareaopen(h,fil*2); 
 
 %--------------------------------------------------------------------------
 %-- 6. realizamos la erosion del esqueje ---------------------------------
@@ -206,7 +207,7 @@ end
         % %forma más solida
         % title('Imagen dilatada');
 %d = bwareaopen(d,40000);%eliminamos objetos que no pertenezcan al esqueje
-
+h = imresize(h, [300 300]);
 esquejeBin = h; %retornamos imagen binarizada
 %--------------------------------------------------------------------------
 %-- 7. Imagen original recortada ------------------------------------------
