@@ -15,10 +15,10 @@ function procesaCarpetas()
                     %Binarizamos la imagen
                     [senalRecor] = binarizar(imagen);
                     %Segmentamos la imagen
-                    [imaR]=getSegments(senalRecor);
+                    %[imaR]=getSegments(senalRecor);
                     %Guardamos la imagen
-                    imwrite(imaR,['senialesProcesadas\',folderName,'\',imageList(nImage).name,'.bmp']);
-                    figure(1); imshow(imaR);
+                    imwrite(senalRecor,['senialesProcesadas\',folderName,'\',imageList(nImage).name,'.bmp']);
+                    figure(1); imshow(senalRecor);
                 end 
             end
         end

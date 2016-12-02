@@ -2,7 +2,7 @@ function [ esquejeBin ] = binarizar( esqueje )
 %--------------------------------------------------------------------------
 %-- 1. Inicio de la función recortaTallo ----------------------------------
 %--------------------------------------------------------------------------
-figure(12);imshow(esqueje);impixelinfo%mostramos las diferentes capas retornadas
+%figure(12);imshow(esqueje);impixelinfo%mostramos las diferentes capas retornadas
 a = esqueje;%llevamos la imagen a la variable a
 
 
@@ -39,7 +39,6 @@ tamFil = fil*4;
 tamCol = col*4;
 a = ones(tamFil,tamCol);
 a = normaliza(a);
-figure(13);imshow(a);impixelinfo%mostramos las diferentes capas retornadas
 for i = 1:fil
     for j = 1:col
         for k = 1:3
@@ -65,12 +64,10 @@ end
 c = imrotate(a,-90);
 
 h = c;
-figure(19);imshow(h);impixelinfo%mostramos el esqueje binarizado
-figure(14);imshow(a);impixelinfo%mostramos las diferentes capas retornadas
-figure(1);imshow(b);impixelinfo%mostramos las diferentes capas retornadas
-title('Las diferentes capas en escala de grises');
-figure(2);imshow(c);impixelinfo%mostramos la capa que seleccionamos para procesar el esqueje
-title('usaremos');
+%figure(1);imshow(b);impixelinfo%mostramos las diferentes capas retornadas
+%title('Las diferentes capas en escala de grises');
+%figure(2);imshow(c);impixelinfo%mostramos la capa que seleccionamos para procesar el esqueje
+%title('usaremos');
 
 %%%%%circulo
 plancha = c;
@@ -94,9 +91,9 @@ for i = puntoX2:puntoX2+14*4
     end
 end
 plancha2(plancha==0)=0;
-figure(5);imshow(plancha2);impixelinfo
+%figure(5);imshow(plancha2);impixelinfo
 c=pixelMayor(plancha2,c);%todo lo que esta en negro en la imagen binarizada pongalo negro en la imagen original
-figure(3);imshow(c);impixelinfo
+%figure(3);imshow(c);impixelinfo
 %%%%para mejorar la calida
 %%%%aqui termina
 %%%%fin circulo
@@ -108,9 +105,9 @@ figure(3);imshow(c);impixelinfo
 
 c(c>150)=255;
 c(c<255)=0;%definimos el umbral en el cual se encuentra el esqueje
-figure(4);imshow(c);impixelinfo%mostramos el esqueje binarizado
+%figure(4);imshow(c);impixelinfo%mostramos el esqueje binarizado
 c = ~c;
-figure(6);imshow(c);impixelinfo%mostramos el esqueje binarizado
+%figure(6);imshow(c);impixelinfo%mostramos el esqueje binarizado
 %inicio de funcion
 
 % for i = 1:fil
@@ -133,33 +130,66 @@ figure(6);imshow(c);impixelinfo%mostramos el esqueje binarizado
 % ee=strel('disk',1);%Definimos un elemento estructurante
 %         c=imdilate(c,ee);%realizamos la erosion de la imagen
 %         figure(7);imshow(c);impixelinfo%mostramos el esqueje binarizado
+sesalva = 0;
 if(detectaBlanco(c)==1)
     ee=strel('disk',4);%Definimos un elemento estructurante mayor 
         c=imerode(c,ee);%realizamos la dilatación de la imagen
-        figure(7);imshow(c);impixelinfo%mostramos el esqueje binarizado
+        %figure(7);imshow(c);impixelinfo%mostramos el esqueje binarizado
+        
 end
 
 c = bwareaopen(c,fil*8);        
 
 
-figure(8);imshow(c);impixelinfo%mostramos el esqueje binarizado
+%figure(8);imshow(c);impixelinfo%mostramos el esqueje binarizado
 if(c(centroX,centroY)==0)
     c = eliExtrema(c);
+    
 else
     c = ~c;
+    sesalva = 1;
 end
-figure(9);imshow(c);impixelinfo%mostramos el esqueje binarizado
+%figure(9);imshow(c);impixelinfo%mostramos el esqueje binarizado
 ee=strel('disk',10);%Definimos un elemento estructurante
         c=imdilate(c,ee);%realizamos la erosion de la imagen
-        figure(10);imshow(c);impixelinfo%mostramos el esqueje binarizado
+       % figure(10);imshow(c);impixelinfo%mostramos el esqueje binarizado
         ee=strel('disk',10);%Definimos un elemento estructurante mayor 
         c=imerode(c,ee);%realizamos la dilatación de la imagen
-        figure(11);imshow(c);impixelinfo%mostramos el esqueje binarizado
+        %figure(11);imshow(c);impixelinfo%mostramos el esqueje binarizado
 h(c==0)=0;
 
 %fin de funciom
-figure(12);imshow(h);%mostramos el esqueje binarizado
-pause(1)
+%figure(12);imshow(h);impixelinfo%mostramos el esqueje binarizado
+h=pixelMayor2(h,h);%todo lo que esta en negro en la imagen binarizada pongalo negro en la imagen original
+%figure(13);imshow(h);impixelinfo
+%%%%para mejorar la calida
+%%%%aqui termina
+%%%%fin circulo
+%%Luego de obtener la imagen de interes, declaramos un umbral y lo
+
+%--------------------------------------------------------------------------
+%-- 3. Binarización de la imagen ------------------------------------------
+%--------------------------------------------------------------------------
+
+h(h>170)=255;
+h(h<255)=0;%definimos el umbral en el cual se encuentra el esqueje
+%figure(14);imshow(h);impixelinfo%mostramos el esqueje binarizado
+ee=strel('square',1);%Definimos un elemento estructurante
+        h=imdilate(h,ee);%realizamos la erosion de la imagen
+     %   figure(15);imshow(h);impixelinfo%mostramos el esqueje binarizado
+        ee=strel('square',1);%Definimos un elemento estructurante mayor 
+        h=imerode(h,ee);%realizamos la dilatación de la imagen
+        
+       % figure(16);imshow(h);impixelinfo%mostramos el esqueje binarizado
+if(sesalva ==0)
+       h = recortaNumeros(h);
+       figure(17);imshow(h);impixelinfo%mostramos el esqueje binarizado
+ 
+ ee=strel('square',5);%Definimos un elemento estructurante
+        h = bwareaopen(h,8); 
+        %figure(19);imshow(h);impixelinfo%mostramos el esqueje binarizado
+end
+
 %--------------------------------------------------------------------------
 %-- 6. realizamos la erosion del esqueje ---------------------------------
 %--------------------------------------------------------------------------
