@@ -183,7 +183,7 @@ ee=strel('square',1);%Definimos un elemento estructurante
        % figure(16);imshow(h);impixelinfo%mostramos el esqueje binarizado
 if(sesalva ==0)
        h = recortaNumeros(h);
-       figure(17);imshow(h);impixelinfo%mostramos el esqueje binarizado
+       %figure(17);imshow(h);impixelinfo%mostramos el esqueje binarizado
  
  ee=strel('square',5);%Definimos un elemento estructurante
         h = bwareaopen(h,8); 

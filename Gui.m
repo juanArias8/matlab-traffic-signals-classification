@@ -22,7 +22,7 @@ function varargout = Gui(varargin)
 
 % Edit the above text to modify the response to help Gui
 
-% Last Modified by GUIDE v2.5 28-Nov-2016 09:18:57
+% Last Modified by GUIDE v2.5 02-Dec-2016 00:15:56
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -92,9 +92,9 @@ function varargout = Gui_OutputFcn(hObject, eventdata, handles)
 varargout{1} = handles.output;
 
 
-% --- Executes on button press in Cargar.
-function Cargar_Callback(hObject, eventdata, handles)
-% hObject    handle to Cargar (see GCBO)
+% --- Executes on button press in cargar.
+function cargar_Callback(hObject, eventdata, handles)
+% hObject    handle to cargar (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
@@ -104,29 +104,40 @@ if nombre == 0
 end
 senal=imread(fullfile(direc,nombre));
 imshow(senal);
-set(handles.detectar1, 'UserData', senal);%guardamos la imagen en el componente
+set(handles.pCarpetas, 'UserData', senal);%guardamos la imagen en el componente
 
-% --- Executes on button press in detectar1.
-function detectar1_Callback(hObject, eventdata, handles)
-% hObject    handle to detectar1 (see GCBO)
+% --- Executes on button press in pCarpetas.
+function pCarpetas_Callback(hObject, eventdata, handles)
+% hObject    handle to pCarpetas (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
- procesaCarpetas();
-[matrizE, matrizT] = creaMatrices();
+
+procesaCarpetas();
+
 %imshow(senalRecor);
 
 
-% --- Executes on button press in detecNeu.
-function detecNeu_Callback(hObject, eventdata, handles)
-% hObject    handle to detecNeu (see GCBO)
+% --- Executes on button press in evaluarImagen.
+function evaluarImagen_Callback(hObject, eventdata, handles)
+% hObject    handle to evaluarImagen (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 load('netRedNeuronal.mat');
-senial = get(handles.detectar1, 'UserData');
+senial = get(handles.pCarpetas, 'UserData');
 [senial] = binarizar(senial);
-[senial] = getSegments(senial);
-set(handles.detectar1, 'UserData', senial);
+set(handles.pCarpetas, 'UserData', senial);
 imshow(senial);
 [x(:,1)] = getFeatures(senial);
 y = net(x);
 disp(y);
+
+
+% --- Executes on button press in clasificar.
+function clasificar_Callback(hObject, eventdata, handles)
+% hObject    handle to clasificar (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+[matrizE, matrizT] = creaMatrices();
+
+
