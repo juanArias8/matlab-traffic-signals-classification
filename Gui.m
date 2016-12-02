@@ -131,6 +131,8 @@ x = getFeatures(senial);
 yVec = net(x);
 [y,ind] = max(yVec);
 disp(ind)
+mensaje = (['La señal procesada corresponde a la clase: ', num2str(ind)]);
+set(handles.ediText, 'String', mensaje);
 
 
 % --- Executes on button press in clasificar.
