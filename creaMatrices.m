@@ -1,7 +1,7 @@
-function[matrizE, matrizT]= creaMatrices()
+function creaMatrices()
     matrizEntrenamiento = [];
     nombreClase = [];
-    cont = 1; 
+    j=1;
     dirList = dir(['senialesProcesadas/']);    
     for ndir=1:length(dirList)
         if ~(strcmp(dirList(ndir).name, '.') || strcmp(dirList(ndir).name, '..'))
@@ -17,15 +17,14 @@ function[matrizE, matrizT]= creaMatrices()
                     imagen = imread(['senialesProcesadas\',folderName,'\',imageList(nImage).name]);
                     figure(1); imshow(imagen);
                     [featuresImaR] = getFeatures(imagen);
-                    matrizEntrenamiento = cat(1, matrizEntrenamiento, featuresImaR);    
-                    nombreClase(cont,ndir-2) = 1;
-                    cont = cont+1;
+                    matrizEntrenamiento(:,j) = featuresImaR; 
+                    disp(j);
+                    nombreClase(ndir-2,j) = 1;
+                    j = j+1;
                 end 
             end
         end
     end
     save('matrizEntrenamiento.mat','matrizEntrenamiento');
     save('nombreClase.mat','nombreClase');
-    matrizE = matrizEntrenamiento;
-    matrizT = nombreClase;
 end

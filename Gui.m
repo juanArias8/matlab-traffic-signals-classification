@@ -127,9 +127,10 @@ senial = get(handles.pCarpetas, 'UserData');
 [senial] = binarizar(senial);
 set(handles.pCarpetas, 'UserData', senial);
 imshow(senial);
-[x(:,1)] = getFeatures(senial);
-y = net(x);
-disp(y);
+x = getFeatures(senial);
+yVec = net(x);
+[y,ind] = max(yVec);
+disp(ind)
 
 
 % --- Executes on button press in clasificar.
